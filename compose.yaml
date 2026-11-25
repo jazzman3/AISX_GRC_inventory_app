@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MODULE: inventory
+      DB_PATH: /data/inventory.db
+    ports:
+      - "127.0.0.1:8201:8000"
+    volumes:
+      - app_data:/data
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs: [/tmp]
+volumes:
+  app_data:
